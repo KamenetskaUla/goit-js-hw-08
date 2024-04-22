@@ -84,26 +84,22 @@ imageListEl.addEventListener("click", onImageClick);
 
 function onImageClick(event) {
   event.preventDefault();
-  if (event.target === event.currentTarget) return;
-  const imageEl = event.target.closest(".gallery-item");
-  if (!imageEl) return;
+  if (event.target.nodeName !== "IMG") {
+    return;
+  }
 
-  const original = imageListEl.dataset.original;
-  const currentImage = images.find((image) => {
-    return images.original === original;
-    console.log(original);
-  });
-}
-onImageClick(EventTarget);
-const instance = basicLightbox.create(
-  `
-    <div class="modal">
+  const original = event.target.dataset.source;
+  const alt = event.target.alt;
+  const instance = basicLightbox.create(
+    `
+  
       <img
-         src="${currentImage.original}"
-        alt="${currentImage.description}"
+         src="${original}"
+        alt="${alt}"
      />
 
-     </div>
+     
    `
-);
-instance.show();
+  );
+  instance.show();
+}
